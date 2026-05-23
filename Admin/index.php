@@ -1,5 +1,6 @@
 <?php
 include "header.php";
+global $koneksi;
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -106,10 +107,7 @@ include "header.php";
         <!-- /.col -->
 </div>
 <!-- /.row -->
-</section>
-</div>
-<!-- /.content -->
-<!-- /.content-wrapper -->
+
 
 <?php
 

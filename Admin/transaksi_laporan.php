@@ -36,7 +36,7 @@ include "../config/koneksi.php";
         <div class="col-md-8">
           <div class="box box-primary">
             <div class="box-header">
-              <a href="transaksi_laporan_cetak.php?PenjualanID=<?php echo $awal; ?>&sampai <?php echo $akhir; ?>" target="_blank" class="btn btn-success pull-right"><i class="glyphicon glyphicon-print"></i>Cetak</a>
+              <a href="transaksi_laporan_cetak.php?dari=<?php echo $awal; ?>&sampai=<?php echo $akhir; ?>" target="_blank" class="btn btn-success pull-right"><i class="glyphicon glyphicon-print"></i>Cetak</a>
             </div>
             <div class="box-body">
               <table class="table table-bordered table-striped">

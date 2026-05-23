@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 
 $localhost = "localhost";
 $username  = "root";
 $password  = "";
-$database  = "kasir_bm"; // Tidak boleh pakai tanda minus (-)
+$database  = "kasir-bm"; // Tidak boleh pakai tanda minus (-)
 
 // Membuat koneksi
 $koneksi = mysqli_connect($localhost, $username, $password, $database);
@@ -15,5 +15,3 @@ if (!$koneksi) {
 } else {
     echo "";
 }
-
-?>

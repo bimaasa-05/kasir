@@ -46,7 +46,7 @@ include "../config/koneksi.php"
                     <td><?= $no++; ?></td>
                     <td><?= $penjualan['NamaProduk']; ?></td>
                     <td><?= $penjualan['JumlahProduk']; ?></td>
-                    <td><?= "Rp. " . number_format($penjualan['Subtotal']) . "-,"; ?></td>
+                    <td><?= "Rp. " . number_format($penjualan['SubTotal']) . "-,"; ?></td>
                     <td>
                       <a href="transaksi_barang_hapus.php?ProdukID=<?php echo $penjualan['ProdukID']; ?>&PenjualanID=<?php echo $penjualan['PenjualanID']; ?>" class="btn btn-xs btn-danger" role="button" title="Hapus Data"><i class="glyphicon glyphicon-trash"></i></a>
                     </td>
