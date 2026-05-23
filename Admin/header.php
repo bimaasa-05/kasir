@@ -1,5 +1,5 @@
 <?php
-
+global $koneksi;
 include "../config/koneksi.php";
 
 session_start();
@@ -103,7 +103,7 @@ if ($_SESSION['role'] == "") {
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-danger btn-flat">Sign out</a>
+                                        <a href="logout.php" class="btn btn-danger btn-flat">Sign out</a>
                                     </div>
                                 </li>
                             </ul>
@@ -158,25 +158,16 @@ if ($_SESSION['role'] == "") {
                             <li><a href="produk_data.php"><i class="fa fa-circle-o"></i> Data Produk</a></li>
                             <li><a href="kasir_data.php"><i class="fa fa-circle-o"></i> Data Kasir</a></li>
                         </ul>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-money"></i>
-                            <span>Data Transaksi</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="transaksi_data.php"><i class="fa fa-circle-o"></i> Data Transaksi</a></li>
-                            <li><a href="transaksi_tambah.php"><i class="fa fa-circle-o"></i> Tambah Transaksi</a></li>
-                        </ul>
+
+                    <li>
+                        <a href="transaksi_data.php"><i class="fa fa-money"></i> Data Transaksi</a>
                     </li>
                     <li>
                         <a href="transaksi_laporan.php">
                             <i class="fa fa-book"></i> <span>Laporan Transaksi</span>
                         </a>
                     </li>
-                    </li>
+
             </section>
             <!-- /.sidebar -->
         </aside>

@@ -19,82 +19,46 @@
     }
     ?>
     <div class="container">
-        <?php
-        $PenjualanID = $_GET['PenjualanID'];
-        $dt_penjualan = mysqli_query($koneksi, "SELECT * FROM tb_penjualan INNER JOIN tb_pelanggan ON tb_penjualan.PelangganID = tb_pelanggan.PelangganID WHERE PenjualanID = '$PenjualanID'");
-        while ($penjualan = mysqli_fetch_array($dt_penjualan)) {
-        ?>
-            <h2 class="text-center"><strong>Kasir Sederhana</strong></h2>
-            <p class="text-center"><strong>Jl. Jedral Soedirman No. 175 Indramayu</strong></p>
-            <br>
+        <h2 class="text-center"><strong>Kasir Sederhana</strong></h2>
+        <p class="text-center"><strong>Jl. Jedral Soedirman No. 175 Indramayu</strong></p>
+        <br>
 
-            <h4>DATA BARANG</h4>
-            <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped">
+            <thead>
                 <tr>
-                    <td width="10%">No. Penjualan</td>
-                    <td width="5%"> :</td>
-                    <td><?php echo $penjualan['PenjualanID']; ?></td>
+                    <td>No </td>
+                    <td>Nomor Transaksi</td>
+                    <td>Tanggal Penjualan</td>
+                    <td>Nama Pelanggan</td>
+                    <td>Nama Petugas</td>
+                    <td>Total</td>
                 </tr>
-                <tr>
-                    <td width="10%">Nama Pelanggan</td>
-                    <td width="5%"> :</td>
-                    <td><?php echo $penjualan['NamaPelanggan']; ?></td>
-                </tr>
-                <tr>
-                    <td width="10%">Tanggal Transaksi</td>
-                    <td width="5%"> :</td>
-                    <td><?php echo $penjualan['TanggalPenjualan']; ?></td>
-                </tr>
-                <tr>
-                    <td width="10%">TOTAL</td>
-                    <td width="5%"> :</td>
-                    <?php
-                    $sub_total_belanja = mysqli_query($koneksi, "SELECT SUM(Subtotal) AS sub_total FROM tb_detail_penjualan WHERE PenjualanID = '$PenjualanID'");
-                    while ($total_belanja = mysqli_fetch_array($sub_total_belanja)) {
-                        $total = +$total_belanja['sub_total'];
-                    ?>
-                        <td>
-                            <strong><?php echo "Rp. " . number_format($total) . ",-"; ?></strong>
-                        </td>
-                    <?php
-                    }
-                    ?>
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <h4 class="text-center"> Data Barang</h4>
-            <table class=" table table-bordered table-striped">
-                <thead>
-                    <td>NO</td>
-                    <td>NAMA BARANG</td>
-                    <td> QTY</td>
-                    <td>SUBTOTAL</td>
-                </thead>
-                <tbody>
-                    <?php
+            </thead>
+            <tbody>
+                <?php
+                $tgl_awal = $_GET['dari'];
+                $tgl_akhir = $_GET['sampai'];
 
-                    $PenjualanID = $penjualan['PenjualanID'];
-                    $data_belanjaan = mysqli_query($koneksi, "SELECT *, SUM(JumlahProduk) as jumlah FROM tb_detail_penjualan INNER JOIN tb_produk ON tb_produk.ProdukID = tb_detail_penjualan.ProdukID WHERE PenjualanID = '$PenjualanID' GROUP BY tb_detail_penjualan.ProdukID");
-                    $no = 1;
-                    while ($belanjaan = mysqli_fetch_array($data_belanjaan)) {
-                    ?>
-                        <tr>
-                            <td><?php echo $no++; ?></td>
-                            <td><?php echo $belanjaan['NamaProduk'] ?></td>
-                            <td><?php echo $belanjaan['JumlahProduk'] ?></td>
-                            <td><?php echo "Rp. " . number_format($belanjaan['Subtotal']) . ",-"; ?></td>
-                        </tr>
-                    <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
-            <br>
-            <p><i>"Terimakasih Sudah Berbelanja Di Toko Kami"</i></p>
-        <?php
-        }
-        ?>
+
+                $UserID = $_SESSION['UserID'];
+                $dt_penjualan = mysqli_query($koneksi, "SELECT * FROM tb_penjualan INNER JOIN tb_pelanggan ON tb_pelanggan.PelangganID = tb_penjualan.PelangganID INNER JOIN tb_user ON tb_user.UserID = tb_penjualan.UserID WHERE date(TanggalPenjualan) >= '$tgl_awal' AND date(TanggalPenjualan) <= '$tgl_akhir' ORDER BY TanggalPenjualan DESC");
+                $no = 1;
+                while ($penjualan = mysqli_fetch_array($dt_penjualan)) { ?>
+                    <tr>
+                        <td><?php echo $no++; ?></td>
+                        <td><?php echo $penjualan['PenjualanID']; ?></td>
+                        <td><?php echo $penjualan['TanggalPenjualan']; ?></td>
+                        <td><?php echo $penjualan['NamaPelanggan']; ?></td>
+                        <td><?php echo $penjualan['NamaUser']; ?></td>
+                        <td><?php echo "Rp. " . number_format($penjualan['TotalHarga']) . ",- ";  ?></td>
+                    </tr>
+                <?php
+                }
+                ?>
+            </tbody>
+        </table>
+        <br>
+        <p class="text-center"><i>"Laporan Transaksi Dari Tanggal <?php echo $tgl_awal; ?> sampai <?php echo $tgl_akhir; ?>"</i></p>
     </div>
     <script type="text/javascript">
         window.print();

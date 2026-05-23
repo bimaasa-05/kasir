@@ -24,11 +24,11 @@
         $dt_penjualan = mysqli_query($koneksi, "SELECT * FROM tb_penjualan INNER JOIN tb_pelanggan ON tb_penjualan.PelangganID = tb_pelanggan.PelangganID WHERE PenjualanID = '$PenjualanID'");
         while ($penjualan = mysqli_fetch_array($dt_penjualan)) {
         ?>
-            <h2 class="text-center"><strong>Kasir Sederhana</strong></h2>
+            <h2 class="text-center"><strong>Aplikasi Kasir Sederhana</strong></h2>
             <p class="text-center"><strong>Jl. Jedral Soedirman No. 175 Indramayu</strong></p>
             <h3>DATA BARANG</h3>
             <br>
-            <table class="table-stiped">
+            <table class="table table-bordered table-striped">
                 <tr>
                     <td width="10%">No. Penjualan</td>
                     <td width="5%"> :</td>
@@ -48,7 +48,7 @@
                     <td width="10%">TOTAL</td>
                     <td width="5%"> :</td>
                     <?php
-                    $sub_total_belanja = mysqli_query($koneksi, "SELECT *,SUM(Subtotal) AS sub_total FROM tb_detail_penjualan WHERE PenjualanID");
+                    $sub_total_belanja = mysqli_query($koneksi, "SELECT *,SUM(SubTotal) AS sub_total FROM tb_detail_penjualan WHERE PenjualanID");
                     while ($total_belanja = mysqli_fetch_array($sub_total_belanja)) {
                         $total = +$total_belanja['sub_total'];
                     ?>
@@ -65,6 +65,7 @@
             <h4 class="text-center"> Data Barang</h4>
             <table class=" table table-bordered table-striped">
                 <thead>
+
                     <td>NO</td>
                     <td>NAMA BARANG</td>
                     <td> QTY</td>
@@ -82,7 +83,7 @@
                             <td><?php echo $no++; ?></td>
                             <td><?php echo $belanjaan['NamaProduk']; ?></td>
                             <td><?php echo $belanjaan['JumlahProduk']; ?></td>
-                            <td><?php echo "Rp. " . number_format($belanjaan['Subtotal']) . ",-"; ?></td>
+                            <td><?php echo "Rp. " . number_format($belanjaan['SubTotal']) . ",-"; ?></td>
                         </tr>
                     <?php
                     }
